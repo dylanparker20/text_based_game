@@ -1,0 +1,591 @@
+player_name = ""
+
+import time
+import sys
+from time import sleep
+import os
+import random
+
+end_credits = print(" This game was created by J.Simpson, J.Zwozniak , D.Loman, T.Washington & D.Parker")
+
+clear_screen = os.system('clear')   #if on windows please use 'cls' mac users use 'clear'
+
+
+index = 0
+score = 0
+banner_pen = """ 
+              ....``....-...``./syyyyssyyyssyyyyyysssyyyhhhhddmmdmddddhhyo++//:::///++oossso:      
+               `````` ``.-.````:osyysssyyyyyyyyyhyyyyyhhhhhddddmddmmmmdddhy+/+++::://+ooosssy/ ``   
+               ```     ``.``` `/ossssssyyssyyssyyyyyyhhdhdddmmmddmmmmmmmddho///:::://++++osss.`//   
+               ``       ````   /ooosssssssyyysyyhhhhhhhddddddmmmmmNmmmmmdhy//:-::::/++oooo++-:os:   
+               ``        ``    :+oooosysyyyyyyhhhhdddddddddddmmmmmNmmmmddho::..-::://+++++//++o+-   
+                               -+oooossyyyyyyhhhhdddddddddddmdmmmmNmddddhy/.....:////++++/+++os:`   
+                `              `/+ossssyyyyyyyyhhhdhdddddddmmmdmmmNmddddy:`````.--:::////+o++oo.    
+                                -/ossyyyyyyyyyhhhhhhdddddddmmddmmmNdddhho`   ```.--::///////+s.     
+                                .:+syyyysyyyhhhdddddddddddmmmdmmmmmdhhhy:  ````..--:::://///o:      
+                                `-/syyyyyoyyhhhhdddddddddddddddmmmmhhhy+   ````..----:::::/+:       
+                                .-/oyyyhy/hhhhhhhhdddddmmmyhmmmmmmmhyy+`  `````....------:+:`       
+                               `:/:/oyhy++hhddddddddddmmmmsdmmmmmdmhyo-.. ```````.....--:/:         
+                      `````...``+///::/+::syhhdddddddmdddd/ddmmmmNmhs/::.`````.....---::-`          
+                 -+oo++/:://:---:oooo:``-.-://+osyyyyyyyyo-yyyyyhdmho+++````...----:://-            
+                .::/++o+///:::-..+syyy/.`...``./oyyo:..:/-:/.::ohdmhoss: ``..--://:::-.             
+             -ssssssso+o+::::----/syyhy+`:++osssdmmho:-.....ohddmmmhys:.--://+ooso/.`               
+ ```````     -ossssssso+++++++++//oyhho-shhhhhyymNmmdddhys.odmmNNmhs//+oossyyyhddddh/`            ` 
+     ```    `/ossssoossso++o+/:::/+sy/-hdhhs+++shdmmmmmmmmy-hmNNNy//+oossssyyyhhddddh-              
+         .::/oosssoss++++/:.-/++/:/++`ossss-   `.--:-.oyhddo-dmNdssssyyyyhyysyhddddmmh-             
+`````` ./+oso+ossoosssoo+++oso/://://..:osys/-.```.-:ohyosyy-+ddyosssyyyyyyyhdhhddhdmmo             
+::::://:/sssso+/+ssyyyyysos+/:/+///://+/--:+ossoosydmdhs/-/+`ohy/+o+ossssssydhyhddmmmmms            
+ooo+/::osoo+o+++ososysssoooo+//+/+/.-:/oo:`` `.-::.-...-+/::oysssyyyssosyysydhhdddmmmmNmo-`         
+yyo-.---:+o+++yyhyysysssssossooos+:+/.-+oo-..`---:`.-:ohysoo++osyhhhhyyssssshhyhddhdmmNNNNmy+-      
+yys+/:/:-+oo:/osyyssyhyyyyssyyso+/so/...+so---------/ydhys+/::oyyhhhhhhyyssyhyyhhddddmmmmmNNmd`     
+ysoso/:../+/o+oyyyssyysssyyysoossyso/+/::oso:``...:shddyso:+s++syhyyyyyysssyhyyyyhddddddmmmmmh.`:/:-
+sssoyo/:-./oo+:osssosso+ossssyyyhyoooooo+/syysoosyhddds//yyyyhs+oyyyyyyhyyyhdddddddmmddddddddhsosyyy
+ooshss+:.:+o+///++oyysssssyyhhhyoossooos+--/ossssyyso-/oshddhddho+sssyysoshhhddmmmddddmmmmdys++ossyh
+shhyys+.``.//ooo+oosyyysoooosys+oososoys+//.`.-:::+/+/+yhhdddddddhs+///+ossyyyhhdddddddddhs/:.-/osyd 
+"""
+banner_1 = """ 
+@@@@@@@   @@@  @@@  @@@@@@@       @@@@@@    @@@  @@@  @@@  @@@@@@@@  
+@@@@@@@@  @@@  @@@  @@@@@@@@     @@@@@@@@   @@@  @@@  @@@  @@@@@@@@  
+@@!  @@@  @@!  @@@  @@!  @@@     @@!  @@@   @@!  @@@  @@!       @@!  
+!@!  @!@  !@!  @!@  !@   @!@     !@!  @!@   !@!  @!@  !@!      !@!   
+@!@@!@!   @!@  !@!  @!@!@!@      @!@  !@!   @!@  !@!  !!@     @!!    
+!!@!!!    !@!  !!!  !!!@!!!!     !@!  !!!   !@!  !!!  !!!    !!!     
+!!:       !!:  !!!  !!:  !!!     !!:!!:!:   !!:  !!!  !!:   !!:      
+:!:       :!:  !:!  :!:  !:!     :!: :!:    :!:  !:!  :!:  :!:       
+ ::       ::::: ::   :: ::::     ::::: :!   ::::: ::   ::   :: ::::  
+ :         : :  :   :: : ::       : :  :::   : :  :   :    : :: : :  
+                                                                     
+                                                                     """
+
+banner_creature = """                                                                                                               ``                                  
+
+                                                                                                     
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                            ```     ````                                                            
+                    `````````````````````````````````                                               
+                  `````............................```                                              
+                 `...----:::::/:-..-::::---:/++++++::::.`                                           
+                 .-:://++ooooo:/oosyyyyyhyhhhyhhyhhhhyyso/.                                         
+              ```-/oosyyyyyys+syyyso//+oyhhhddhhyosyyso+//:`                                        
+         ````````.:oyhhhdhhhshhy/--:.``..+ydddy+-.s+-..`` ``                                        
+       ``````````..-shhddddhhhyo////:--:++ss:......`                                                
+      ```````````...-+yhhdhhhhddmdmmhhddddh..--/-...`     .`                                        
+      ```````````....-ohhhdhhdddddmdmmmmmm/---.-....`    -//`        `                              
+        ```````````..-shhhhhddmmmNNNNNmmmh:-.`//:.`.```/syso.                                       
+          `````````..-yyyhhhdmmNNNNNNNNNmms+shmmNs:-:/yhhyso-        ``                             
+           ` ```````.:ysyhhddmmNNNNNNNNNNmNNNNmdmmdyso++oys+:        ````````                       
+             ````````-osshhddmmmmNNNNNNNNNmhsso++++++o+/+/s/.       ```` `````                      
+              ``` ```.:+oyhhddmmmNNNdys++/:/+//:/:..``../sh+`       ````` `````                     
+                   ````:+syhddmmmmNNhdho/-...----.`` `.:+sd:      ` `````` ````                     
+                   ````./syyhhdmmmmNNNNNNmmddhsoooo+/-:++ys.     `````````   `                      
+                      ``:osyyhhdmmmNNNNNNNmmmdddddhyoooo:/:`     ````````                           
+                      ``.:+oosyhddmmmmmmmmmmmmdddhyo+o+-```                                         
+                       ``.-:/+////+++++///::--..```                                                 
+                                                                                                                                                                                                 
+                                                                                                                                                                                                      
+"""
+
+banner_harm = """                                                                                                      
+                                                                                                    
+                                                                     `..   .-`                      
+                                                                      .:`  `.   `-`                 
+                                                                       .:-.::``:o-                  
+                                                                       ./+++/++s+ `::               
+                                                                      `.---.:::://+.                
+                                                               `     .+/-.....`-+:`                 
+                                        `....-.`                ``.-///+://:..--`                   
+                                       .+ossss:--                `.-:/::--/:--.                     
+                                       ./+osyo--.`                  ````...--`                      
+                                       `.--/+.`-.                                                   
+                                      `.`-.`:``.`..                                                 
+                      `..----..       `:+o/./-`:/:.                                                 
+                      :::.:+++-        .:+o:::-::.`        .``````                                  
+                     .:.`  .-.`         .-:`   ..`        `...```                                   
+                     -.-`                .:.```..`         .````.-/:-`                              
+                    ./:.                 --:/+/.`      `      `.........`                           
+                    :/:`                 ./:.`````     `      .+++///oo+/-                          
+                    -/-                   `/+:-+/--     -     -/oo+o//:-`                           
+                   .+/.                    `.--:::`    ``      ::.``                                
+                   `.``                      `.:/:                   ````````                       
+                   ````                       `.                ````..``.````                       
+               `  ``-`-``.:.`````                       ```......----.....```                       
+                 .  ``  `  -.`..```                   ``...-----..-.....````                        
+                ``  `.  `` `.`.....````              ``.......````````````                          
+                     .  ``````..-:::--..```        ````..............`````                          
+                      ````````...-::::....`.````````..``............``````                                                          
+"""
+
+banner_2 = """
+╔═╗┬─┐┌─┐┌─┐┬┌─┬ ┬  ╔═╗┬┬  ┌┬┐┌─┐
+╠╣ ├┬┘├┤ ├─┤├┴┐└┬┘  ╠╣ ││  │││└─┐
+╚  ┴└─└─┘┴ ┴┴ ┴ ┴   ╚  ┴┴─┘┴ ┴└─┘
+"""
+
+banner_3 = """
+╔═╗┬─┐┬ ┬┌─┐┌─┐┌─┐┌┬┐┌─┐  ╔═╗┌─┐┌─┐┌┬┐┌─┐
+║ ╦├┬┘│ │├┤ └─┐│ ││││├┤   ╠╣ ├─┤│   │ └─┐
+╚═╝┴└─└─┘└─┘└─┘└─┘┴ ┴└─┘  ╚  ┴ ┴└─┘ ┴ └─┘"""
+
+banner_4 = """
+┬ ┬┬ ┬┌─┐┌┬┐  ┌┬┐┌─┐  ┬ ┬┌─┐┬ ┬  ┬┌─┌┐┌┌─┐┬ ┬┌─┐  
+│││├─┤├─┤ │    │││ │  └┬┘│ ││ │  ├┴┐││││ ││││ ┌┘  
+└┴┘┴ ┴┴ ┴ ┴   ─┴┘└─┘   ┴ └─┘└─┘  ┴ ┴┘└┘└─┘└┴┘ o   """
+
+banner_game_over = """
+                                                                                            
+ @@@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@      @@@@@@   @@@  @@@  @@@@@@@@  @@@@@@@   @@@  
+@@@@@@@@@  @@@@@@@@  @@@@@@@@@@@  @@@@@@@@     @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@  @@@  
+!@@        @@!  @@@  @@! @@! @@!  @@!          @@!  @@@  @@!  @@@  @@!       @@!  @@@  @@!  
+!@!        !@!  @!@  !@! !@! !@!  !@!          !@!  @!@  !@!  @!@  !@!       !@!  @!@  !@   
+!@! @!@!@  @!@!@!@!  @!! !!@ @!@  @!!!:!       @!@  !@!  @!@  !@!  @!!!:!    @!@!!@!   @!@  
+!!! !!@!!  !!!@!!!!  !@!   ! !@!  !!!!!:       !@!  !!!  !@!  !!!  !!!!!:    !!@!@!    !!!  
+:!!   !!:  !!:  !!!  !!:     !!:  !!:          !!:  !!!  :!:  !!:  !!:       !!: :!!        
+:!:   !::  :!:  !:!  :!:     :!:  :!:          :!:  !:!   ::!!:!   :!:       :!:  !:!  :!:  
+ ::: ::::  ::   :::  :::     ::    :: ::::     ::::: ::    ::::     :: ::::  ::   :::   ::  
+ :: :: :    :   : :   :      :    : :: ::       : :  :      :      : :: ::    :   : :  :::  
+                                                                                            """
+
+
+
+
+
+
+def typewriter(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(.06) #speed .06 for real game speed, 01 for testing
+
+
+
+def intro_poem():
+    typewriter("It\'s too early for the circus")
+    print()
+    typewriter("It\'s too late for the bars")
+    print()
+    typewriter("Everybody\'s asleep")
+    print()
+    typewriter("Except for us")
+    print()
+    typewriter("No one likes a stranger here")
+    print()
+    typewriter("So come on and make some friends")
+    print()
+    typewriter("Grab yourself a seat")
+    print()
+    typewriter("Now...")
+    print()
+    typewriter("Try not to be a cheat")
+    print()
+    time.sleep(2)
+    os.system('clear') #if on windows please use 'cls' mac users use 'clear'
+
+
+
+player_name = ""
+def display_intro_name():
+    global player_name
+    typewriter("Welcome to the Steaming Cauldron")
+    print()
+    print()
+    clear_screen
+    typewriter("You're about to take part in Penny The Wise's infamous pub quiz!")
+    print()
+    print(banner_pen)
+    time.sleep(2)
+    clear_screen
+    player_name = input("What's your name?: ")
+    clear_screen
+    typewriter(f"Welcome {player_name}.....")
+    time.sleep(2)
+    
+    
+
+
+def main_menu():
+    print("")
+    print("+--------------------------------+")
+    print("|Welcome to the Steaming Cauldron|")
+    print("+--------------------------------+")
+    print("| Please select an option:       |")
+    print("|                                |")
+    print("| 1. Play True or False Quiz     |")
+    print("| 2. Film Quiz                   |")
+    print("| 3. Gruesome Facts              |")
+    print("| 0. Quit                        |")
+    print("+--------------------------------+")
+    choice = input("Enter 1, 2, 3, 0: ")
+
+    if choice == "1":
+        clear_screen
+        play_tof_quiz()
+    elif choice == "2":
+        clear_screen
+        play_film_quiz()
+    elif choice == "3":
+        clear_screen
+        play_gruesome_facts()
+    elif choice == "0":
+        clear_screen
+        typewriter("Thanks for playing!")
+        clear_screen
+        quit()
+    elif choice == "":
+        clear_screen
+        typewriter("Thanks for playing!")
+        clear_screen
+        quit()
+    
+
+
+
+
+def get_tof_statements():
+
+    statements = []
+    statements.append(["The mask used in Halloween is a William Shatner mask from Star Trek – it was modified and painted white", "T"])
+    statements.append(["The Saw mastermind was initially going to be a deranged carpenter who was left in solitude for too long", "F"])
+    statements.append(["The film Hannibal was actually set to be named The Meal", "F"])
+    statements.append(["The Ring was originally going to be about a little blond boy but they felt long girl hair would be scarier", "F"])
+    statements.append(["In the original Nightmare on Elm Street, the term “Elm Street” is said 14 times.", "F"])
+    statements.append(["The horror movie killer Jason was originally named Josh", "T"])
+    statements.append(["Danny Lloyd, the little boy who played Danny in The Shining, was not told the movie would be a horror.", "T"])
+    statements.append(["During filming for Carrie, Sissy Space slept in bloody clothes for three days while filming the prom scene.", "T"])
+    statements.append(["It took almost a year to get the iconic elevator blood shot in The Shining", "T"])
+    statements.append(["Dracula, the classic novel by Bram Stoker, was named after a real person.", "T"])
+    statements.append(["In the savage Stone Age, people would kill a bear and then rip open its stomach to eat the meal the bear had consumed before it was killed.", "T"])
+    statements.append(["In Tudor times a cook was boiled to death in a giant cauldron because he poisoned the soup", "T"])
+    statements.append(["A penny dropped from the top of the Empire State Building will kill you.", "F"])
+    statements.append(["There’s a species of lizard that shoots blood from its eyes", "T"])
+    statements.append(["Rats spread the Black Death", "F"])
+    statements.append(["Suspected witches were burned at the stake in Salem", "F"])
+    statements.append(["There's a company that turns dead bodies into an ocean reef.", "T"])
+
+
+    return statements  
+
+# diversion
+def diversion():
+    clear_screen
+    print("WELL DONE FOR COMPLETING THIS ROUND. CHEEKY VLAD IS OFFERING YOU A BLOODY MARY. DO YOU ACCEPT?")  # add str content later
+    choice = input("Y or N: ")
+    if choice == "Y":
+        typewriter("You feel like you're in a rollecoaster.")
+        print()
+        typewriter("You stand up to try and feel any different.")
+        print()
+        typewriter("Legs like thin matches, you could fall over any time.")
+        print()
+        typewriter("Penny The Wise can't let you participate any longer.")
+        print()
+        typewriter("TAXI FOR 1!")
+        print()
+        time.sleep(2)
+        print(f"Your score is - {score}/{index}")
+        time.sleep(2)
+        clear_screen
+        print(banner_game_over)
+        print()
+        print(" Thank you for playing")
+        print()
+        print(" This game was created by Tom, J.Simpson, J.Zwozniak , D.Loman & D.Parker")
+        print()
+        print("Wanna play again? Pick a theme")
+        main_menu()
+    elif choice == "N":
+       typewriter("Very Wise...")
+       print()
+       typewriter("Who knows what's in that bloody drink?")
+       print()
+       typewriter("Unfortunately cheeky Vlad doesn't take it well and starts a row.")
+       print()
+       typewriter("Unlucky for you..")
+       print() 
+       typewriter("Buffalo Bouncer didn't see who started it..")
+       print()
+       typewriter("You are both BARRED")
+       print()
+       clear_screen
+       time.sleep(2)
+       print(f"Your score is - {score}/{index}")
+       time.sleep(2)
+       clear_screen
+       print(banner_game_over)
+       print()
+       print(" Thank you for playing")
+       print()
+       end_credits()
+       print(banner_game_over)
+       time.sleep(2)
+       quit()
+    else:
+        clear_screen
+        typewriter("You're talking gibberish..... I'll ask you again..:")
+        diversion()
+        
+   
+
+def play_tof_quiz():
+    global index
+    print(banner_4)
+    time.sleep(2)
+    clear_screen
+# get your true or false statements
+    tof_statements = get_tof_statements()
+# Randomise tof statement
+    random.shuffle(tof_statements)
+# Set player score to 0
+    score = 0
+
+# show tof statements using a loop 
+    for s in tof_statements:
+        print("True or false: " + s[0])
+# user enter guess
+        guess = input("Enter T or F: ")
+# check if guess is correct
+        if guess == s[1]:
+            print("Correct!")
+            score += 1
+            index += 1
+ # update score 
+        else:
+            print("Incorrect :(")
+            index += 1
+        if index == 5: 
+         diversion()
+
+
+def get_film_questions():
+    film_statements = []
+    film_statements.append(["What is the name of the motel in Alfred Hitchcock\'s 1960 psychological horror Psycho?:\nA - The Bates motel\nB - The Baker Hotel\nC - The Halfway House", "A","a"])
+    film_statements.append(["Who starred as Jack Torrance in the classic stanley kubrick psychological horror film of 1980?:\nA - Jack Nicholson\nB - Danny D\'vito\nC - Ian Mckellen", "A", "a"])
+    film_statements.append(["Which 1974 horror film which was banned in several countries upon release, features the protagonist /“leatherface?:\nA - Silence of the Lambs\nB - The Texas Chainsaw Massacre\nC - Creep", "B","b"])
+    film_statements.append(["Which vintage horror movie got 10 academy award nominations?:\nA - Nightmare on Elm Street\nB - Psycho\nC - The Exorcist", "C", "c"])
+    film_statements.append(["Which horror film character wields a glove with razors for fingers?:\nA - David Kessler from \'American warewolf in London\' \nB - Freddie Krueger from \'a Nightmare on Elm street\’\nC - Wolverwine \'X men\'", "B" or "b"])
+    film_statements.append(["Where does the story of \'Scream 2\' take place?:\nA - On a University campus\nB - In a theme park\nC - TESCO", "A" ,"a"])
+    film_statements.append(["What is the name of the demon in the Exorcist?:\nA - Pazzazu\nB - Abbado\nC - Lucifer", "A" , "a"])
+    film_statements.append(["Which horror film kills someone by forcing them to eat too much?:\nA - Human centipede\nB - se7en\nC - The Exorcist", "B" , "b"])
+    film_statements.append(["Which Oscar winning actor played a cross-dressing killer in the film Dressed to Kill?:\nA - Michael Caine\nB - Les Dennis\nC - Matt Damon", "A" , "a"])
+    film_statements.append(["Which film would you first meet the Xenobytes?:\nA - Hellraiser\nB - The Terminator\nC - The Thing", "A" , "a"])
+    film_statements.append(["In which film do you meet a zombie called \"Bub\"?:\nA - World War Z\nB - Day of the Dead\nC - I am legend", "B" ,"b"])
+    film_statements.append(["What character has been played by Harvey Stephens, Jonathon Scott Taylor and Sam Neill?:\nA - Damien\nB - Hannibal Lector\nC - Lucifer", "A" , "a"])
+    film_statements.append(["In what film were two Americans told by the locals in the pub \"The Slaughtered Lamb\" to stay on the road?:\nA - 28 days later\nB - Splinter\nC - American Werewolf in London", "C" , "c"])
+    film_statements.append(["In Silence of the Lamb a victim is helping a stranger and is put off by \"the smell of his chamois\" What does this represent? :\nA - The smell of faeces\nB - The smell of human skin\nC - The smell of blood", "B" or "b"])
+    film_statements.append(["In the film Carrie a girl gets a bucket of blood poured over her. Which animal\'s blood is this supposed to be? :\nA - Cow\nB - Pig\nC - Horse", "B" , "b"])
+    
+    return film_statements
+
+def play_film_quiz():
+    global index
+    print(banner_2)
+    time.sleep(2)
+    clear_screen
+# get your true or false statements
+    film_facts = get_film_questions()
+# Randomise tof statement
+    random.shuffle(film_facts)
+# Set player score to 0
+    score = 0
+# show tof statements using a loop 
+    for s in film_facts:
+# user enter guess
+        print(s[0])
+        guess = input("Enter A, B or C: ")
+# check if guess is correct
+        if guess == s[1]:
+            print("Correct!")
+            score += 1
+            index += 1
+ # update score 
+        elif index == 5:
+            clear_screen
+            typewriter(f"Well done {player_name}, you have completed our game!")
+            print("")
+            typewriter(f"Your final score is: {score}")
+            print("")
+            time.sleep(2)
+            play_again()
+        else:
+            print("Incorrect :(")
+            index += 1
+
+
+
+def get_gruesome_facts():
+    gruesome_statements = []
+    gruesome_statements.append(["How many seconds does a human head remain conscious after being decapitated?:\nA - 20 seconds\nB - 40 seconds", "A" ])
+    gruesome_statements.append(["What percentage of children report hearing voices?:\nA - 20%\nB - 15%", "B"])
+    gruesome_statements.append(["What were common ingredients in medicine until the 20th century?:\nA - Human Remains\nB - Animal Bodies", "A"])
+    gruesome_statements.append(["Butterflies have been known to drink what?:\nA - Blood\nB - Urine", "A"])
+    gruesome_statements.append(["What is more likely?:\nA - To die on the way to buy lottery tickets \nB - To win the lottery", "A"])
+    gruesome_statements.append(["How much percentage of blood do you have to lose before you die? :\nA - 20%\nB - 40%", "B"])
+    gruesome_statements.append(["Keelhauling was “a severe punishment whereby the condemned man was dragged beneath the ship's keel on a rope. ... Once the crew members let go of the rope, the victim falls to the sea and is dragged along the keel (or bottom) of the ship, hence the name keelhauling. Which century was this done? :\nA - 18th/19th century\nB - 19th/20th century", "B"])
+    gruesome_statements.append(["The average person walks past how many murderers in their lifetime?:\nA - 194\nB - 36", "B"])
+    gruesome_statements.append(["What were used as bandages in ancient times?:\nA - Spider Webs\nB - Animal Skin", "A"])
+    gruesome_statements.append(["How long would it approx. take to drive to space in a car?:\nA - 1 hour\nB - 3 hours", "A"])
+    gruesome_statements.append(["In what year was child labour banned in Britain?:\nA - 1878\nB - 1987", "A"])
+    gruesome_statements.append(["Which of the below is thought to have been a common Aztec punishment?:\nA - Sleeping tied up on a damp floor\nB - Walking up and down a pyramid from dusk till dawn ", "B"])
+
+    return gruesome_statements
+
+def play_gruesome_facts():
+    global index
+    print(banner_3)
+    time.sleep(2)
+    clear_screen
+# get your true or false statements
+    gruesome_facts = get_gruesome_facts()
+# Randomise tof statement
+    random.shuffle(gruesome_facts)
+# Set player score to 0
+    score = 0
+
+# show tof statements using a loop 
+    for s in gruesome_facts:
+# user enter guess
+        print(s[0])
+        guess = input("Enter A or B (capital letters only): ")
+# check if guess is correct
+        if guess == s[1]:
+            if input == "A".upper() or "a".lower():
+             print("Correct!")
+            score += 1
+            index += 1
+        elif index == 5 or index >= 5:
+            typewriter(f"Well done {player_name}, you have completed our game!")
+            print("")
+            typewriter(f"Your final score is: {score}")
+            print("")
+            time.sleep(2)
+            clear_screen
+            print(banner_harm)
+            typewriter("You feel a menacing presence approaching you....")
+            time.sleep(1.5)
+            clear_screen
+            battlestate()
+        else:
+            print("Incorrect :(")
+            index += 1
+           
+            
+
+       
+def play_again():
+    global index
+    global score
+    index = 0
+    score = 0
+    main_menu()
+    typewriter(f"Thanks for playing {player_name}")
+        
+
+class player(object):
+    health = 200
+    strength = 10
+    dexterity = 15
+
+
+#enemy 
+
+class Pennie_The_Wise(object):
+    name = "Pennie The Wise"
+    health = 150
+    strength = 10
+
+def battlestate():
+    enemy = Pennie_The_Wise
+    print("So....?")
+    print()
+    print("You think you know it all do you?")
+    print(banner_creature)
+    clear_screen
+    print("You are ruining my quiz....")
+    time.sleep(2)
+    clear_screen
+    print("You will pay!")
+    time.sleep(2)
+    clear_screen
+    typewriter("The final boss fight against Penny The Wise begins!!!")
+    time.sleep(2)
+    clear_screen
+    print("Your health is: ", player.health)
+    print("Penny's health is: ", enemy.health)
+    while enemy.health > 0:
+        choice = input("1. Punch\n2. Kick\n3. Special Move\n")
+        if choice == "1":
+            clear_screen
+            print("You swing at Pennie")
+            hitchance = random.randint(0,10)
+            if hitchance > 3:
+                enemy.health = enemy.health - player.strength
+                print("You hit him right in the face! Pennie's health is now: ", enemy.health)
+                if enemy.health > 0:
+                    player.health = player.health - enemy.strength
+                    print("Pennie smacked your silly bottoms. Your health is now: ", player.health)
+                elif enemy.health < 1:
+                    print("You have conquered our game! Everybody in the pub is getting you booz and pork scratchings (except Pennie), winning!")
+                    time.sleep(2)
+                    quit()
+                
+
+
+
+
+
+            else:
+                print("You missed like a fool, you fool!")
+                print(enemy.name, "counters you!")
+                player.health = player.health - enemy.strength
+                print("You have", player.health,"health left")
+        elif choice == "2":
+            clear_screen
+            print("You try to drop kick Pennie")
+            hitchance = random.randint(0,10)
+            if hitchance > 3:
+                enemy.health = enemy.health - player.strength
+                print("You kicked his ass! Pennie's health is now: ", enemy.health)
+                if enemy.health > 0:
+                    player.health = player.health - enemy.strength
+                    print("Pennie smacked your silly ass. Your health is now: ", player.health)
+                elif enemy.health < 1:
+                    print("You have conquered our game! Everybody in the pub is getting you booz and pork scratchings (except Pennie), winning!")
+                    time.sleep(2)
+                    end_credits()
+                    quit()
+            else:
+                print("You missed like a fool, you fool!")
+                print(enemy.name, "counters you!")
+                player.health = player.health - enemy.strength
+                print("You have", player.health,"health left")
+        
+        
+        
+        
+        
+        elif choice == "3":
+            clear_screen
+            typewriter("Kaaaaaa.....meeeeeee.....haaaaaa......meeeeeeeeee......haaaaaaaaaaaaaaa\n")
+            hitchance = random.randint(0,10)
+            if hitchance > 1:
+                enemy.health = enemy.health - 100
+                print("You blasted him! Pennie's health is now: ", enemy.health)
+                if enemy.health > 0:
+                    player.health = player.health - enemy.strength
+                    print("Pennie smacked your silly bottoms. Your health is now: ", player.health)
+                elif enemy.health < 1:
+                    print("You have conquered our game! Everybody in the pub is getting you booz and pork scratchings (except Pennie), winning!")
+                    time.sleep(2)
+                    quit()
+
+            else:
+                print("You missed like a fool, fool!")
+                print(enemy.name, "counters you!")
+                player.health = player.health - enemy.strength
+                print("You have", player.health,"health left")
+
+
+intro_poem()     
+display_intro_name()
+main_menu()
